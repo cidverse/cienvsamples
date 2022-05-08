@@ -6,6 +6,13 @@ echo "collect for: ${CI_SERVICE_NAME}"
 # collect
 printenv > ${CI_SERVICE_NAME}.env
 
+# filter credentials
+sed -i '/GH_GIST_TOKEN=/d' ${CI_SERVICE_NAME}.env
+
+# filter ci service tokens
+sed -i '/GITHUB_TOKEN=/c\GITHUB_TOKEN=secret' ${CI_SERVICE_NAME}.env
+sed -i '/CI_JOB_TOKEN=/c\CI_JOB_TOKEN=secret' ${CI_SERVICE_NAME}.env
+
 # log result
 echo "environment:"
 cat ${CI_SERVICE_NAME}.env
