@@ -1,0 +1,21 @@
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: |
+        export CI_SERVICE_NAME="gitlab-ci"
+        bash <(curl -s https://raw.githubusercontent.com/cidverse/cienvsamples/main/scripts/report.sh)
