@@ -17,5 +17,5 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - script: |
-        export CI_SERVICE_NAME="gitlab-ci"
+        export CI_SERVICE_NAME="azure-pipelines"
         bash <(curl -s https://raw.githubusercontent.com/cidverse/cienvsamples/main/scripts/report.sh)
