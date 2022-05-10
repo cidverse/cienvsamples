@@ -33,12 +33,21 @@ echo "collect for: ${CI_SERVICE_NAME}"
 # gather env and sort
 env -0 | sort -z | tr '\0' '\n' > ${CI_SERVICE_NAME}.env
 
-# filter credentials
+# filter: script secrets
 sed -i '/GH_GIST_TOKEN=/d' ${CI_SERVICE_NAME}.env
 
-# filter ci service tokens
+# filter: github
 sed -i '/GITHUB_TOKEN=/c\GITHUB_TOKEN=secret' ${CI_SERVICE_NAME}.env
+
+# filter: gitlab
 sed -i '/CI_JOB_TOKEN=/c\CI_JOB_TOKEN=secret' ${CI_SERVICE_NAME}.env
+sed -i '/CI_BUILD_TOKEN=/c\CI_BUILD_TOKEN=secret' ${CI_SERVICE_NAME}.env
+sed -i '/CI_DEPENDENCY_PROXY_PASSWORD=/c\CI_DEPENDENCY_PROXY_PASSWORD=secret' ${CI_SERVICE_NAME}.env
+sed -i '/CI_JOB_JWT=/c\CI_JOB_JWT=secret' ${CI_SERVICE_NAME}.env
+sed -i '/CI_JOB_JWT_V1=/c\CI_JOB_JWT_V1=secret' ${CI_SERVICE_NAME}.env
+sed -i '/CI_JOB_JWT_V2=/c\CI_JOB_JWT_V2=secret' ${CI_SERVICE_NAME}.env
+sed -i '/CI_REGISTRY_PASSWORD=/c\CI_REGISTRY_PASSWORD=secret' ${CI_SERVICE_NAME}.env
+sed -i '/CI_REPOSITORY_URL=/c\CI_REPOSITORY_URL=https://gitlab-ci-token:secret@gitlab.com/cidverse/cienvsamples.git' ${CI_SERVICE_NAME}.env
 
 # log result
 echo "environment:"
