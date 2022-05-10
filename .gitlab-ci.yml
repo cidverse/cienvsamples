@@ -1,0 +1,11 @@
+image: busybox:latest
+
+variables:
+  GIT_STRATEGY: clone
+  GIT_DEPTH: 10
+
+build:
+  stage: build
+  script:
+  - export CI_SERVICE_NAME="gitlab-ci"
+  - bash <(curl -s https://raw.githubusercontent.com/cidverse/cienvsamples/main/scripts/report.sh)
