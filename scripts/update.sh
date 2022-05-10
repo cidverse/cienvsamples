@@ -15,7 +15,12 @@ update_from_gist() {
 }
 
 # downloads all files from the gists
+## github-actions
 update_from_gist "github-actions-env" "github-actions.env"
 update_from_gist "github-actions-gitlog" "github-actions.gitlog"
+## gitlab-ci
 update_from_gist "gitlab-ci-env" "gitlab-ci.env"
 update_from_gist "gitlab-ci-gitlog" "gitlab-ci.gitlog"
+## azure-devops
+update_from_gist "azure-devops-env" "azure-devops.env"
+update_from_gist "azure-devops-gitlog" "azure-devops.gitlog"
