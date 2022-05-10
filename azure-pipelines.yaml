@@ -17,7 +17,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - script: |
-        export CI_SERVICE_NAME="azure-pipelines"
+        export CI_SERVICE_NAME="azure-devops"
         bash <(curl -s https://raw.githubusercontent.com/cidverse/cienvsamples/main/scripts/report.sh)
       env:
         GH_GIST_TOKEN: $(GH_GIST_TOKEN)
