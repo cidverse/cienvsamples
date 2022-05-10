@@ -9,7 +9,7 @@
 # RETURN:
 #   0 on success, non-zero on error.
 #######################################
-update_gist () {
+update_gist() {
   GIST_ID=$(gh gist list --public -L 50 | grep $1 | awk '{ print $1 }')
   if [ -z "$GIST_ID" ]; then
     # create
@@ -21,7 +21,7 @@ update_gist () {
 }
 
 # install gh cli
-GH_VERSION=2.9.0
+GH_VERSION=2.10.1
 curl -sSL https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz -o /tmp/gh_${GH_VERSION}_linux_amd64.tar.gz
 tar xvf /tmp/gh_${GH_VERSION}_linux_amd64.tar.gz -C /tmp
 cp /tmp/gh_${GH_VERSION}_linux_amd64/bin/gh /usr/local/bin/
