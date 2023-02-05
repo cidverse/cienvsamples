@@ -1,5 +1,8 @@
 #!/bin/bash
 
+GH_VERSION=2.22.1
+export GH_CLI=/tmp/gh_${GH_VERSION}_linux_amd64/bin/gh
+
 #######################################
 # creates or updates a github gist
 #
@@ -10,22 +13,20 @@
 #   0 on success, non-zero on error.
 #######################################
 update_gist() {
-  GIST_ID=$(/usr/local/bin/gh gist list --public -L 50 | grep $1 | awk '{ print $1 }')
+  GIST_ID=$($GH_CLI gist list --public -L 50 | grep $1 | awk '{ print $1 }')
   if [ -z "$GIST_ID" ]; then
     # create
-    /usr/local/bin/gh gist create --public $2 -d "$1"
+    $GH_CLI gist create --public $2 -d "$1"
   else
     # update
-    /usr/local/bin/gh gist edit ${GIST_ID} $2 -d "$1"
+    $GH_CLI gist edit ${GIST_ID} $2 -d "$1"
   fi
 }
 
 # install gh cli
-GH_VERSION=2.22.1
+
 curl -sSL https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz -o /tmp/gh_${GH_VERSION}_linux_amd64.tar.gz
 tar xvf /tmp/gh_${GH_VERSION}_linux_amd64.tar.gz -C /tmp
-cp /tmp/gh_${GH_VERSION}_linux_amd64/bin/gh /usr/local/bin/
-chmod +x /usr/local/bin/gh
 
 # log
 echo "collect for: ${CI_SERVICE_NAME}"
@@ -57,7 +58,7 @@ cat ${CI_SERVICE_NAME}.env
 cat .git/logs/HEAD > ${CI_SERVICE_NAME}.gitlog
 
 # auth
-gh auth login --with-token <<<"$GH_GIST_TOKEN"
+$GH_CLI auth login --with-token <<<"$GH_GIST_TOKEN"
 
 # update gist
 update_gist "${CI_SERVICE_NAME}-env" "${CI_SERVICE_NAME}.env"
