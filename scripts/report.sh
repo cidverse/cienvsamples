@@ -10,13 +10,13 @@
 #   0 on success, non-zero on error.
 #######################################
 update_gist() {
-  GIST_ID=$(gh gist list --public -L 50 | grep $1 | awk '{ print $1 }')
+  GIST_ID=$(/usr/local/bin/gh gist list --public -L 50 | grep $1 | awk '{ print $1 }')
   if [ -z "$GIST_ID" ]; then
     # create
-    gh gist create --public $2 -d "$1"
+    /usr/local/bin/gh gist create --public $2 -d "$1"
   else
     # update
-    gh gist edit ${GIST_ID} $2 -d "$1"
+    /usr/local/bin/gh gist edit ${GIST_ID} $2 -d "$1"
   fi
 }
 
@@ -26,7 +26,6 @@ curl -sSL https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VE
 tar xvf /tmp/gh_${GH_VERSION}_linux_amd64.tar.gz -C /tmp
 cp /tmp/gh_${GH_VERSION}_linux_amd64/bin/gh /usr/local/bin/
 chmod +x /usr/local/bin/gh
-export PATH=$PATH:/usr/local/bin
 
 # log
 echo "collect for: ${CI_SERVICE_NAME}"

@@ -24,3 +24,6 @@ update_from_gist "gitlab-ci-gitlog" "gitlab-ci.gitlog"
 ## azure-devops
 update_from_gist "azure-devops-env" "azure-devops.env"
 update_from_gist "azure-devops-gitlog" "azure-devops.gitlog"
+## appveyor
+update_from_gist "appveyor-env" "appveyor.env"
+update_from_gist "appveyor-gitlog" "appveyor.gitlog"
