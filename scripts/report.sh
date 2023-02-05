@@ -21,7 +21,7 @@ update_gist() {
 }
 
 # install gh cli
-GH_VERSION=2.10.1
+GH_VERSION=2.22.1
 curl -sSL https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz -o /tmp/gh_${GH_VERSION}_linux_amd64.tar.gz
 tar xvf /tmp/gh_${GH_VERSION}_linux_amd64.tar.gz -C /tmp
 cp /tmp/gh_${GH_VERSION}_linux_amd64/bin/gh /usr/local/bin/
