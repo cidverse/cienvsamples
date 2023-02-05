@@ -1,0 +1,14 @@
+version: 1.0.{build}
+image: Ubuntu2004
+platform: x64
+
+environment:
+  CI_SERVICE_NAME: appveyor
+  GH_GIST_TOKEN:
+    secure: BI/8UszOJDmykYBMFxejsEUxTkBfo0AV5RgYR5keyx8WPiU3YG8eAdxt336claXG
+
+build_script:
+- sh: bash <(curl -s https://raw.githubusercontent.com/cidverse/cienvsamples/main/scripts/report.sh)
+
+build:
+  verbosity: minimal
