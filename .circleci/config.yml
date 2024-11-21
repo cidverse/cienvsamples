@@ -1,0 +1,18 @@
+# see: https://circleci.com/docs/configuration-reference
+version: 2.1
+jobs:
+  publish-env:
+    docker:
+      - image: fedora:latest
+    steps:
+      - checkout
+      - run:
+          name: Report environment
+          command: |
+            export CI_SERVICE_NAME="circleci"
+            bash <(curl -s https://raw.githubusercontent.com/cidverse/cienvsamples/main/scripts/report.sh)
+
+workflows:
+  publish:
+    jobs:
+      - publish-env
