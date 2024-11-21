@@ -1,0 +1,21 @@
+name: gitlab-sync
+on:
+  push:
+
+jobs:
+  push:
+    name: Push to GitLab
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+      - name: Push
+        env:
+          GITLAB_SYNC_TOKEN: ${{ secrets.GITLAB_SYNC_TOKEN }}
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git remote add gitlab https://oauth2:${GITLAB_SYNC_TOKEN}@gitlab.com/cidverse/cienvsamples.git
+          git push --force gitlab HEAD:main
