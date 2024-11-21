@@ -27,3 +27,6 @@ update_from_gist "azure-devops-gitlog" "azure-devops.gitlog"
 ## appveyor
 update_from_gist "appveyor-env" "appveyor.env"
 update_from_gist "appveyor-gitlog" "appveyor.gitlog"
+## circleci
+update_from_gist "circleci-env" "circleci.env"
+update_from_gist "circleci-gitlog" "circleci.gitlog"

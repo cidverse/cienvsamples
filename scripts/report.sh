@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GH_VERSION=2.22.1
+GH_VERSION=2.62.0
 export GH_CLI=/tmp/gh_${GH_VERSION}_linux_amd64/bin/gh
 
 #######################################
@@ -36,6 +36,7 @@ env -0 | sort -z | tr '\0' '\n' > ${CI_SERVICE_NAME}.env
 
 # filter: script secrets
 sed -i '/GH_GIST_TOKEN=/d' ${CI_SERVICE_NAME}.env
+sed -i '/GH_TOKEN=/d' ${CI_SERVICE_NAME}.env
 
 # filter: github
 sed -i '/GITHUB_TOKEN=/c\GITHUB_TOKEN=secret' ${CI_SERVICE_NAME}.env
@@ -50,6 +51,10 @@ sed -i '/CI_JOB_JWT_V2=/c\CI_JOB_JWT_V2=secret' ${CI_SERVICE_NAME}.env
 sed -i '/CI_REGISTRY_PASSWORD=/c\CI_REGISTRY_PASSWORD=secret' ${CI_SERVICE_NAME}.env
 sed -i '/CI_REPOSITORY_URL=/c\CI_REPOSITORY_URL=https://gitlab-ci-token:secret@gitlab.com/cidverse/cienvsamples.git' ${CI_SERVICE_NAME}.env
 
+# filter: circleci
+sed -i '/CIRCLE_OIDC_TOKEN=/c\CIRCLE_OIDC_TOKEN=secret' ${CI_SERVICE_NAME}.env
+sed -i '/CIRCLE_OIDC_TOKEN_V2=/c\CIRCLE_OIDC_TOKEN_V2=secret' ${CI_SERVICE_NAME}.env
+
 # log result
 echo "environment:"
 cat ${CI_SERVICE_NAME}.env
@@ -58,7 +63,7 @@ cat ${CI_SERVICE_NAME}.env
 cat .git/logs/HEAD > ${CI_SERVICE_NAME}.gitlog
 
 # auth
-$GH_CLI auth login --with-token <<<"$GH_GIST_TOKEN"
+export GH_TOKEN=$GH_GIST_TOKEN
 
 # update gist
 update_gist "${CI_SERVICE_NAME}-env" "${CI_SERVICE_NAME}.env"
