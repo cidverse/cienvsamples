@@ -38,6 +38,7 @@ env -0 | sort -z | tr '\0' '\n' > ${CI_SERVICE_NAME}.env
 # filter: script secrets
 sed -i '/GH_GIST_TOKEN=/d' ${CI_SERVICE_NAME}.env
 sed -i '/GH_TOKEN=/d' ${CI_SERVICE_NAME}.env
+sed -i '/GH_CLI=/d' ${CI_SERVICE_NAME}.env
 
 # filter: github
 sed -i '/GITHUB_TOKEN=/c\GITHUB_TOKEN=secret' ${CI_SERVICE_NAME}.env
