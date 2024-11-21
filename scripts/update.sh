@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# auth
+export GH_TOKEN=$GH_GIST_TOKEN
 
 #######################################
 # updates the files in this repository using the gists

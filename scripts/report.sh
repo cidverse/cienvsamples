@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-GH_VERSION=2.62.0
-export GH_CLI=/tmp/gh_${GH_VERSION}_linux_amd64/bin/gh
+# auth
+export GH_TOKEN=$GH_GIST_TOKEN
 
 #######################################
 # creates or updates a github gist
@@ -24,7 +24,8 @@ update_gist() {
 }
 
 # install gh cli
-
+GH_VERSION=2.62.0
+export GH_CLI=/tmp/gh_${GH_VERSION}_linux_amd64/bin/gh
 curl -sSL https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz -o /tmp/gh_${GH_VERSION}_linux_amd64.tar.gz
 tar xvf /tmp/gh_${GH_VERSION}_linux_amd64.tar.gz -C /tmp
 
@@ -60,10 +61,11 @@ echo "environment:"
 cat ${CI_SERVICE_NAME}.env
 
 # store git head log
-cat .git/logs/HEAD > ${CI_SERVICE_NAME}.gitlog
-
-# auth
-export GH_TOKEN=$GH_GIST_TOKEN
+if [ -f .git/logs/HEAD ]; then
+  cat .git/logs/HEAD > ${CI_SERVICE_NAME}.gitlog
+else
+  echo "{file-missing}" > ${CI_SERVICE_NAME}.gitlog
+fi
 
 # update gist
 update_gist "${CI_SERVICE_NAME}-env" "${CI_SERVICE_NAME}.env"
